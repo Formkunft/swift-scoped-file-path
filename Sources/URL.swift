@@ -27,7 +27,6 @@ import Foundation
 
 /// Initializers for `URL` from `AbsoluteFilePath`.
 public extension URL {
-	@_disfavoredOverload
 	init(_ filePath: AbsoluteFilePath) {
 #if canImport(Darwin)
 		if #available(macOS 13, *) {
@@ -41,10 +40,12 @@ public extension URL {
 #endif
 	}
 	
+#if canImport(Darwin)
 	@available(macOS 13, *)
-	init(_ filePath: AbsoluteFilePath, directoryHint: URL.DirectoryHint = .inferFromPath) {
+	init(_ filePath: AbsoluteFilePath, directoryHint: URL.DirectoryHint) {
 		self.init(filePath: filePath.storage, directoryHint: directoryHint)!
 	}
+#endif
 	
 	init(_ filePath: AbsoluteFilePath, isDirectory: Bool) {
 #if canImport(Darwin)
