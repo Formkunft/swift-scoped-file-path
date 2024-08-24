@@ -2,22 +2,22 @@
 import PackageDescription
 
 let package = Package(
-    name: "LightTableFilePaths",
-    platforms: [
-        .macOS(.v12),
-    ],
-    products: [
-        .library(
-            name: "LightTableFilePaths",
-            targets: ["LightTableFilePaths"]),
-    ],
-    targets: [
-        .target(
-            name: "LightTableFilePaths"),
-        .testTarget(
-            name: "LightTableFilePathsTests",
-            dependencies: ["LightTableFilePaths"]),
-    ]
+	name: "LightTableFilePaths",
+	platforms: [
+		.macOS(.v12),
+	],
+	products: [
+		.library(
+			name: "LightTableFilePaths",
+			targets: ["LightTableFilePaths"]),
+	],
+	targets: [
+		.target(
+			name: "LightTableFilePaths"),
+		.testTarget(
+			name: "LightTableFilePathsTests",
+			dependencies: ["LightTableFilePaths"]),
+	]
 )
 
 #if !canImport(System)
