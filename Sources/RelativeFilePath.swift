@@ -60,7 +60,13 @@ public struct RelativeFilePath: ExtendedFilePath, ExpressibleByStringLiteral, Se
 		self.init(FilePath(root: nil, components))!
 	}
 	
-	public static func dropCommonPrefix(_ lhs: Self, _ rhs: Self) -> (base: Self, paths: (Self, Self)) {
+	public static func dropCommonPrefix(
+		_ lhs: RelativeFilePath,
+		_ rhs: RelativeFilePath
+	) -> (
+		base: RelativeFilePath,
+		paths: (RelativeFilePath, RelativeFilePath)
+	) {
 		let lhsComponents = Array(lhs.storage.components)
 		let rhsComponents = Array(rhs.storage.components)
 		

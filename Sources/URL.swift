@@ -21,9 +21,11 @@
 
 import Foundation
 
-/// Assume that an absolute file path can always be converted to an URL.
-/// Thus, the force unwrapping in the following initializers should never fail.
-/// This is also why there are no `URL` initializers for `RelativeFilePath`.
+// Assume that an absolute file path can always be converted to an URL.
+// Thus, the force unwrapping in the following initializers should never fail.
+// This is also why there are no `URL` initializers for `RelativeFilePath`.
+
+/// Initializers for `URL` from `AbsoluteFilePath`.
 public extension URL {
 	@_disfavoredOverload
 	init(_ filePath: AbsoluteFilePath) {
