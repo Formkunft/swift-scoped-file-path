@@ -25,10 +25,11 @@ import Foundation
 /// Thus, the force unwrapping in the following initializers should never fail.
 /// This is also why there are no `URL` initializers for `RelativeFilePath`.
 public extension URL {
+	@_disfavoredOverload
 	init(_ filePath: AbsoluteFilePath) {
 #if canImport(Darwin)
 		if #available(macOS 13, *) {
-			self.init(filePath: filePath.storage, directoryHint: .checkFileSystem)!
+			self.init(filePath: filePath.storage, directoryHint: .inferFromPath)!
 		}
 		else {
 			self.init(filePath.storage)!
@@ -38,13 +39,18 @@ public extension URL {
 #endif
 	}
 	
+	@available(macOS 13, *)
+	init(_ filePath: AbsoluteFilePath, directoryHint: URL.DirectoryHint = .inferFromPath) {
+		self.init(filePath: filePath.storage, directoryHint: directoryHint)!
+	}
+	
 	init(_ filePath: AbsoluteFilePath, isDirectory: Bool) {
 #if canImport(Darwin)
 		if #available(macOS 13, *) {
 			self.init(filePath: filePath.storage, directoryHint: isDirectory ? .isDirectory : .notDirectory)!
 		}
 		else {
-			self.init(filePath.storage)!
+			self.init(fileURLWithPath: filePath.storage.string, isDirectory: isDirectory)
 		}
 #else
 		self.init(fileURLWithPath: filePath.storage.string, isDirectory: isDirectory)
