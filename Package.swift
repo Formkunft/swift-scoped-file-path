@@ -5,11 +5,11 @@ let package = Package(
 	name: "LightTableFilePaths",
 	platforms: [
 		.macOS(.v12),
-		.iOS(.v14),
-		.macCatalyst(.v14),
-		.tvOS(.v14),
+		.iOS(.v15),
+		.macCatalyst(.v15),
+		.tvOS(.v15),
 		.visionOS(.v1),
-		.watchOS(.v7),
+		.watchOS(.v8),
 	],
 	products: [
 		.library(
