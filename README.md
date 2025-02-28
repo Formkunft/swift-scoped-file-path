@@ -8,17 +8,17 @@ Add `swift-scoped-file-path` as a dependency to your package:
 
 ```swift
 let package = Package(
-	// ...
-	dependencies: [
-		.package(url: "https://github.com/Formkunft/swift-scoped-file-path", .upToNextMajor(from: "0.2.0")),
-	],
-	targets: [
-		.target(
-			// ...
-			dependencies: [
-				.product(name: "ScopedFilePath", package: "swift-scoped-file-path"),
-			]),
-	]
+    // ...
+    dependencies: [
+        .package(url: "https://github.com/Formkunft/swift-scoped-file-path", .upToNextMajor(from: "0.2.0")),
+    ],
+    targets: [
+        .target(
+            // ...
+            dependencies: [
+                .product(name: "ScopedFilePath", package: "swift-scoped-file-path"),
+            ]),
+    ]
 )
 ```
 
