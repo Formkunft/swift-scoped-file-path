@@ -1,8 +1,8 @@
-// swift-tools-version: 5.10
+// swift-tools-version: 6.0
 import PackageDescription
 
 let package = Package(
-	name: "LightTableFilePaths",
+	name: "swift-scoped-file-path",
 	platforms: [
 		.macOS(.v12),
 		.iOS(.v15),
@@ -13,15 +13,12 @@ let package = Package(
 	],
 	products: [
 		.library(
-			name: "LightTableFilePaths",
-			targets: ["LightTableFilePaths"]),
+			name: "ScopedFilePath",
+			targets: ["ScopedFilePath"]),
 	],
 	targets: [
 		.target(
-			name: "LightTableFilePaths"),
-		.testTarget(
-			name: "LightTableFilePathsTests",
-			dependencies: ["LightTableFilePaths"]),
+			name: "ScopedFilePath"),
 	]
 )
 

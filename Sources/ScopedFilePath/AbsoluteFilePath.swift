@@ -1,7 +1,4 @@
 //
-//  AbsoluteFilePath.swift
-//  LightTableFilePaths
-//
 //  Copyright 2024 Florian Pircher
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +21,7 @@ import System
 import SystemPackage
 #endif
 
-public struct AbsoluteFilePath: ExtendedFilePath, Sendable {
+public struct AbsoluteFilePath: ScopedFilePathProtocol, Sendable {
 	public let storage: FilePath
 	
 	public init?(_ path: FilePath) {

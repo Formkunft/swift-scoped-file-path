@@ -1,7 +1,4 @@
 //
-//  ExtendedFilePath.swift
-//  LightTableFilePaths
-//
 //  Copyright 2024 Florian Pircher
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +21,7 @@ import System
 import SystemPackage
 #endif
 
-public protocol ExtendedFilePath: Hashable, CustomStringConvertible {
+public protocol ScopedFilePathProtocol: Hashable, CustomStringConvertible {
 	typealias Component = FilePath.Component
 	typealias CompareOptions = FilePathCompareOptions
 	
@@ -33,13 +30,13 @@ public protocol ExtendedFilePath: Hashable, CustomStringConvertible {
 	init?(_ path: FilePath)
 }
 
-extension ExtendedFilePath {
-	public var components: FilePath.ComponentView { storage.components }
-	public var lastComponent: FilePath.Component? { storage.lastComponent }
-	public var description: String { storage.string }
-	public var string: String { storage.string }
-	public var stem: String? { storage.stem }
-	public var `extension`: String? { storage.extension }
+extension ScopedFilePathProtocol {
+	public var components: FilePath.ComponentView { self.storage.components }
+	public var lastComponent: FilePath.Component? { self.storage.lastComponent }
+	public var description: String { self.storage.string }
+	public var string: String { self.storage.string }
+	public var stem: String? { self.storage.stem }
+	public var `extension`: String? { self.storage.extension }
 	
 	public init?(platformString: [CInterop.PlatformChar]) {
 		self.init(FilePath(platformString: platformString))
@@ -58,31 +55,31 @@ extension ExtendedFilePath {
 	}
 	
 	public static func == (lhs: Self, rhs: Self) -> Bool {
-		lhs.storage == rhs.storage
+		lhs.self.storage == rhs.self.storage
 	}
 	
 	public func hash(into hasher: inout Hasher) {
-		hasher.combine(storage)
+		hasher.combine(self.storage)
 	}
 	
 	public var isEmpty: Bool {
-		storage.isEmpty
+		self.storage.isEmpty
 	}
 	
 	public func appending(_ other: String) -> Self {
-		Self(storage.appending(other))!
+		Self(self.storage.appending(other))!
 	}
 	
 	public func appending(_ other: FilePath.Component) -> Self {
-		Self(storage.appending(other))!
+		Self(self.storage.appending(other))!
 	}
 	
 	public func appending(_ components: some Collection<FilePath.Component>) -> Self {
-		Self(storage.appending(components))!
+		Self(self.storage.appending(components))!
 	}
 	
 	public func withExtension(_ `extension`: String?) -> Self {
-		var valueCopy = storage
+		var valueCopy = self.storage
 		
 		valueCopy.extension = `extension`
 		
@@ -90,21 +87,17 @@ extension ExtendedFilePath {
 	}
 	
 	public func removingLastComponent() -> Self {
-		Self(storage.removingLastComponent())!
+		Self(self.storage.removingLastComponent())!
 	}
 	
 	public func starts(with prefix: Self, options: FilePathCompareOptions) -> Bool {
 		if options.contains(.unicodeEquality) {
-			storage.components.starts(with: prefix.components) { a, b in
+			self.storage.components.starts(with: prefix.components) { a, b in
 				a.string == b.string
 			}
 		}
 		else {
-			storage.starts(with: prefix.storage)
+			self.storage.starts(with: prefix.self.storage)
 		}
-	}
-	
-	public func withPrecomposedString<R>(_ body: (UnsafePointer<CInterop.PlatformChar>) throws -> R) rethrows -> R {
-		try self.storage.string.precomposedStringWithCanonicalMapping.withCString(body)
 	}
 }

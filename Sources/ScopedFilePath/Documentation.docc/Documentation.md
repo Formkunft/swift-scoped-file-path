@@ -1,4 +1,4 @@
-# ``LightTableFilePaths``
+# ``ScopedFilePath``
 
 Separate `AbsoluteFilePath` and `RelativeFilePath` types.
 
@@ -20,4 +20,4 @@ Both are immutable and offer API specific to their use cases.
 
 ### Abstraction
 
-- ``ExtendedFilePath``
+- ``ScopedFilePathProtocol``
